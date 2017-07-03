@@ -13,7 +13,7 @@ const styles = {
 		padding: 5,
 		backgroundColor: '#fff',
 		justifyContent: 'flex-start',
-		flexdirection: 'row',
+		flexDirection: 'row',
 		borderColor: '#ddd',
 		position: 'relative'
 	}
