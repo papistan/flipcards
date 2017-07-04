@@ -6,7 +6,7 @@ let Card = React.createClass({
     return (
       <View style={styles.card}>
         <Image style={styles.thumbnail} source={{uri: this.props.image}} />
-        <Text style={styles.text}>{this.props.name}</Text>
+        <Text style={styles.text}>{this.props.title}</Text>
       </View>
     )
   }

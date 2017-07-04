@@ -2,11 +2,13 @@
  
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
-import Cards from './Cards';
+import axios from 'axios';
+// import Cards from './Cards';
 import Card from './Card';
 import NoMoreCards from './NoMoreCards';
 import SwipeCards from 'react-native-swipe-cards';
 
+ 
  
 const Cards2 = [
   {name: '10', image: 'https://media.giphy.com/media/12b3E4U9aSndxC/giphy.gif'},
@@ -16,9 +18,13 @@ const Cards2 = [
 ]
  
 export default React.createClass({
+  
+  componentWillMount() {
+    axios.get('https://rallycoding.herokuapp.com/api/music_albums').then(response => this.setState({ cards: response.data }));
+  },
   getInitialState() {
     return {
-      cards: Cards,
+      cards: '',
       outOfCards: false
     }
   },
