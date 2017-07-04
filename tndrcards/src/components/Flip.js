@@ -10,12 +10,12 @@ import SwipeCards from 'react-native-swipe-cards';
 
  
  
-const Cards2 = [
-  {name: '10', image: 'https://media.giphy.com/media/12b3E4U9aSndxC/giphy.gif'},
-  {name: '11', image: 'https://media4.giphy.com/media/6csVEPEmHWhWg/200.gif'},
-  {name: '12', image: 'https://media4.giphy.com/media/AA69fOAMCPa4o/200.gif'},
-  {name: '13', image: 'https://media.giphy.com/media/OVHFny0I7njuU/giphy.gif'},
-]
+// const Cards2 = [
+//   {name: '10', image: 'https://media.giphy.com/media/12b3E4U9aSndxC/giphy.gif'},
+//   {name: '11', image: 'https://media4.giphy.com/media/6csVEPEmHWhWg/200.gif'},
+//   {name: '12', image: 'https://media4.giphy.com/media/AA69fOAMCPa4o/200.gif'},
+//   {name: '13', image: 'https://media.giphy.com/media/OVHFny0I7njuU/giphy.gif'},
+// ]
  
 export default React.createClass({
   
@@ -24,7 +24,8 @@ export default React.createClass({
   },
   getInitialState() {
     return {
-      cards: '',
+      cards: [],
+      cardsCount: 0,
       outOfCards: false
     }
   },
@@ -44,15 +45,20 @@ export default React.createClass({
  
       if (!this.state.outOfCards) {
         console.log(`Adding ${Cards2.length} more cards`)
- 
+
+        // Function to call next 
+        var CardsNext = [];
+       componentWillMount() {
+        axios.get('https://rallycoding.herokuapp.com/api/music_albums' + INTERPOLATE cardsCount FOR BUS #).then(response => this.setState({ cards2: response.data }));
+        // ^ set CardsNext = response.data
+
         this.setState({
-          cards: this.state.cards.concat(Cards2),
+          cards: this.state.cards.concat(CardsNext),
+          cardsCount: this.state.cardsCount += 50,
           outOfCards: true
         })
       }
- 
     }
- 
   },
   render() {
     return (
