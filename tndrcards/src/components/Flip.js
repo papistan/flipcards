@@ -17,19 +17,28 @@ export default React.createClass({
     }
   },
   componentWillMount() {
-    axios.get('https://localites.herokuapp.com/locales').then(response => this.setState({ cards: response.data["businesses"], cardsCount: response.data["businesses"].length }));
+    axios.get('https://localites.herokuapp.com/locales'
+      , { params: {
+      location: city + district
+      }}
+      ).then(response => this.setState({ cards: response.data["businesses"], cardsCount: response.data["businesses"].length }));
   },
   handleYup (card) {
-    console.log("yup")
+    console.log(card)
+    // axios.post('https://localites.herokuapp.com/locales', { params: {
+    //   user_id: user_id,
+    //   card: card
+    //   }
+    // }).
   },
   handleNope (card) {
-    console.log("nope")
+    // console.log("nope")
   },
   cardRemoved (index) {
-    console.log(`The index is ${index}`);
+    // console.log(`The index is ${index}`);
  
     if (this.state.cardsCount - index <= 1 ) {
-      console.log(`Adding more cards`);
+      // console.log(`Adding more cards`);
         axios.get('https://rallycoding.herokuapp.com/api/music_albums').then(response =>  this.setState({ cards: this.state.cards.concat(response.data), cardsCount: (this.state.cardsCount += response.data.length) }));
       };
 
