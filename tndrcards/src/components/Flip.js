@@ -3,31 +3,21 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import axios from 'axios';
-// import Cards from './Cards';
 import Card from './Card';
 import NoMoreCards from './NoMoreCards';
 import SwipeCards from 'react-native-swipe-cards';
 
- 
- 
-// const Cards2 = [
-//   {name: '10', image: 'https://media.giphy.com/media/12b3E4U9aSndxC/giphy.gif'},
-//   {name: '11', image: 'https://media4.giphy.com/media/6csVEPEmHWhWg/200.gif'},
-//   {name: '12', image: 'https://media4.giphy.com/media/AA69fOAMCPa4o/200.gif'},
-//   {name: '13', image: 'https://media.giphy.com/media/OVHFny0I7njuU/giphy.gif'},
-// ]
- 
 export default React.createClass({
   
-  componentWillMount() {
-    axios.get('https://rallycoding.herokuapp.com/api/music_albums').then(response => this.setState({ cards: response.data }));
-  },
   getInitialState() {
     return {
       cards: [],
       cardsCount: 0,
       outOfCards: false
     }
+  },
+  componentWillMount() {
+    axios.get('https://localites.herokuapp.com/locales').then(response => this.setState({ cards: response.data["businesses"], cardsCount: response.data["businesses"].length }));
   },
   handleYup (card) {
     console.log("yup")
@@ -38,28 +28,13 @@ export default React.createClass({
   cardRemoved (index) {
     console.log(`The index is ${index}`);
  
-    let CARD_REFRESH_LIMIT = 3
- 
-    if (this.state.cards.length - index <= CARD_REFRESH_LIMIT + 1) {
-      console.log(`There are only ${this.state.cards.length - index - 1} cards left.`);
- 
-      if (!this.state.outOfCards) {
-        console.log(`Adding ${Cards2.length} more cards`)
+    if (this.state.cardsCount - index <= 1 ) {
+      console.log(`Adding more cards`);
+        axios.get('https://rallycoding.herokuapp.com/api/music_albums').then(response =>  this.setState({ cards: this.state.cards.concat(response.data), cardsCount: (this.state.cardsCount += response.data.length) }));
+      };
 
-        // Function to call next 
-        var CardsNext = [];
-       componentWillMount() {
-        axios.get('https://rallycoding.herokuapp.com/api/music_albums' + INTERPOLATE cardsCount FOR BUS #).then(response => this.setState({ cards2: response.data }));
-        // ^ set CardsNext = response.data
-
-        this.setState({
-          cards: this.state.cards.concat(CardsNext),
-          cardsCount: this.state.cardsCount += 50,
-          outOfCards: true
-        })
-      }
-    }
-  },
+    },
+  // },
   render() {
     return (
       <SwipeCards

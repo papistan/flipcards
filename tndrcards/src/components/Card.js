@@ -5,8 +5,8 @@ let Card = React.createClass({
   render() {
     return (
       <View style={styles.card}>
-        <Image style={styles.thumbnail} source={{uri: this.props.image}} />
-        <Text style={styles.text}>{this.props.title}</Text>
+        <Image style={styles.thumbnail} source={{uri: this.props.image_url}} />
+        <Text style={styles.text}>{this.props.name}</Text>
       </View>
     )
   }

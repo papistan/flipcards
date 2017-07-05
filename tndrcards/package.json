@@ -10,7 +10,8 @@
 		"axios": "^0.16.2",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.45.1",
-		"react-native-swipe-cards": "^0.1.0"
+		"react-native-swipe-cards": "^0.1.0",
+		"v3-yelp-api": "^1.0.2"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",
