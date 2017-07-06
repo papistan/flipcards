@@ -1,5 +1,5 @@
 'use strict';
- 
+
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import axios from 'axios';
@@ -8,7 +8,7 @@ import NoMoreCards from './NoMoreCards';
 import SwipeCards from 'react-native-swipe-cards';
 
 export default React.createClass({
-  
+
   getInitialState() {
     return {
       cards: [],
@@ -17,26 +17,30 @@ export default React.createClass({
     }
   },
   componentWillMount() {
-    axios.get('https://localites.herokuapp.com/locales'
+    var city = "san francisco";
+    var neighborhood = "soma";
+    axios.get('http://localhost:3000/locales'
       , { params: {
-      location: city + district
-      }}
+      city: city, neighborhood: neighborhood
+    }}
       ).then(response => this.setState({ cards: response.data["businesses"], cardsCount: response.data["businesses"].length }));
   },
   handleYup (card) {
     console.log(card)
-    // axios.post('https://localites.herokuapp.com/locales', { params: {
-    //   user_id: user_id,
-    //   card: card
-    //   }
-    // }).
+    var user_id = 1;
+    var plan_id = 1;
+    axios.post('http://localhost:3000/locales', { params: {
+      plan_id: plan_id,
+      card: card
+      }
+    })
   },
   handleNope (card) {
     // console.log("nope")
   },
   cardRemoved (index) {
     // console.log(`The index is ${index}`);
- 
+
     if (this.state.cardsCount - index <= 1 ) {
       // console.log(`Adding more cards`);
         axios.get('https://rallycoding.herokuapp.com/api/music_albums').then(response =>  this.setState({ cards: this.state.cards.concat(response.data), cardsCount: (this.state.cardsCount += response.data.length) }));
@@ -49,12 +53,12 @@ export default React.createClass({
       <SwipeCards
         cards={this.state.cards}
         loop={false}
- 
+
         renderCard={(cardData) => <Card {...cardData} />}
         renderNoMoreCards={() => <NoMoreCards />}
         showYup={true}
         showNope={true}
- 
+
         handleYup={this.handleYup}
         handleNope={this.handleNope}
         cardRemoved={this.cardRemoved}
@@ -62,5 +66,3 @@ export default React.createClass({
     )
   }
 })
- 
- 
